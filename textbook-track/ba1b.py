@@ -1,0 +1,40 @@
+#!/anaconda3/bin/python3
+# http://rosalind.info/problems/ba1b/
+
+def pattern_count(text, pattern):
+    count = 0
+    for i in range(0, (len(text) - len(pattern)+1)):
+        if text[i:i+len(pattern)] == pattern:
+            count += 1
+    return count
+#from ba1a.py
+
+def frequent_words(text, k):
+    frequent_patterns = []
+    count = []
+    
+    for i in range(0, len(text)-k+1):
+        pattern = text[i:i+k]
+        #print(pattern)
+        #print(pattern_count(text, pattern))
+        count.append(pattern_count(text, pattern))
+       
+    #print(count)
+    max_count = max(count)
+    #print(max_count)
+
+    for i in range(0, len(count)):
+        if count[i] == max_count:
+            if text[i:i+k] not in frequent_patterns:
+                frequent_patterns.append(text[i:i+k])
+    return frequent_patterns
+
+
+# seq = 'ACGTTGCATGTCGCATGATGCATGAGAGCT'
+# kmer = 4
+# answer: GCAT CATG
+
+seq = 'GAGTATGCTCGAATGCGTCGAATGCGTCGAATGCGGGATAACCGGATAACCTCGAATGCGAATTGTGACGAGTATGCTCGAATGCGGGATAACCGAGTATGCTCGAATGCGGGATAACCGGATAACCGAGTATGCACGTGAGAATCGAATGCGAATTGTGACGGATAACCGGATAACCTCGAATGCGTCGAATGCGGAGTATGCGAGTATGCGGATAACCGGATAACCTCGAATGCGACGTGAGAATCGAATGCGAATTGTGACAATTGTGACTCGAATGCGACGTGAGAAAATTGTGACAATTGTGACGAGTATGCAATTGTGACACGTGAGAAAATTGTGACGAGTATGCAATTGTGACTCGAATGCGGAGTATGCGAGTATGCTCGAATGCGGAGTATGCACGTGAGAATCGAATGCGGGATAACCGAGTATGCGGATAACCGAGTATGCAATTGTGACACGTGAGAATCGAATGCGAATTGTGACACGTGAGAATCGAATGCGGAGTATGCACGTGAGAATCGAATGCGAATTGTGACACGTGAGAAAATTGTGACGGATAACCGAGTATGCAATTGTGACAATTGTGACACGTGAGAAACGTGAGAAGAGTATGCAATTGTGACACGTGAGAAAATTGTGACGGATAACCACGTGAGAATCGAATGCGAATTGTGACACGTGAGAAGAGTATGCGGATAACCTCGAATGCGGAGTATGCGAGTATGCGGATAACCGGATAACCTCGAATGCGGAGTATGCAATTGTGACGAGTATGCGGATAACCGAGTATGCAATTGTGACGGATAACCAATTGTGACGGATAACCTCGAATGCGTCGAATGCGACGTGAGAA'
+kmer = 11
+
+print(' '.join(frequent_words(seq, kmer)))
